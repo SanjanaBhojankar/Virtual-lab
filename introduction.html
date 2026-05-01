@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction</title>
+    <style>
+* {
+    margin: 0%;
+    padding: 0%;
+}
+
+.navbar {
+    background-color: #bd1dbd;
+    height: 70px;
+}
+
+
+.logo img {
+    position: relative;
+    left: 5%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    top: -5px;
+    left: 55px;
+}
+
+.sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 180px;
+    position: absolute;
+    background-color: #bd1dbd;
+    transition: 0.5s ease;
+    transform: translateX(-180px);
+}
+
+.sidebar ul {
+    position: absolute;
+    top: 12%;
+    align-items: center;
+}
+
+.sidebar ul li {
+    list-style: none;
+    padding-bottom: 20%;
+    font-size: large;
+}
+
+.sidebar ul li:hover {}
+
+.sidebar ul li a {
+    color: white;
+    font-weight: 500;
+    padding: 5px 0;
+    display: block;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: 0.2s ease-out;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e638e6;
+}
+
+input[type="number"],
+input[type="range"] {
+    display: inline-block;
+    visibility: visible;
+    -webkit-appearance: auto;
+}
+
+.toggle {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    z-index: 1;
+    cursor: pointer;
+    /* background-color: red; */
+    top: 2.5%;
+    left: 13px;
+}
+
+.toggle .common {
+    position: absolute;
+    height: 2px;
+    width: 25px;
+    background-color: white;
+    border-radius: 50px;
+    transition: 0.3s ease;
+}
+
+.toggle .top {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle .middle {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle .bottom {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input:checked~.toggle .top {
+    left: 2px;
+    top: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+}
+
+ .topbar {
+      background: #ff6a00;
+      height: 8px;
+      width: 100%;
+    }
+
+input:checked~.toggle .bottom {
+    left: 2px;
+    top: 14px;
+    width: 25px;
+    transform: rotate(-45deg);
+}
+
+input:checked~.toggle .middle {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+input:checked~.sidebar {
+    transform: translateX(0);
+}
+
+.homepage img {
+    width: 100%;
+}
+
+.heading h2 {
+    position: absolute;
+    top: 3%;
+    left: 8%;
+    color: white;
+}
+
+        .nav {
+            background-color: white;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 1%;
+            color: #bd1dbd;
+        }
+
+        p {
+            font-size: large;
+            line-height: 35px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+     <header>
+        <nav>
+
+            <div class="navbar">
+
+                <input type="checkbox" id="check">
+                <label for="check" class="toggle">
+                    <span class="top common"></span>
+                    <span class="middle common"></span>
+                    <span class="bottom common"></span>
+                </label>
+
+
+
+                <div class="sidebar">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                       <li><a href="introduction.html">Introduction</a></li>
+                        <li><a href="objective.html">Objective</a></li>
+                        <li><a href="Aim.html">Aim</a></li>
+                        <li><a href="overview.html">Overview</a></li>
+                        <!-- <li><a href="pretest.html">Pretest</a></li> -->
+                        <li><a href="recap.html">Recap</a></li>
+                        <li><a href="simulation.html">Simulation</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="logo">
+                    <img src="logo.jpg" alt="">
+                </div>
+
+                <div class="heading">
+                    <h2>Mahatma Gandhi Mission's College of Engineering, Nanded</h2>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+      <div class="topbar"></div>
+
+
+    <div class="nav">
+        <h1>Introduction</h1>
+    </div>
+
+
+    <p>Design and Analysis of Algorithms (DAA) is a cornerstone course in the computer science undergraduate curriculum.
+        DAA equips students with systematic techniques to design
+        efficient algorithms and analyze their correctness, performance, and limitations.
+
+        As computing systems become more complex and data-intensive, the ability to design algorithms that are both
+        correct and efficient is more critical than ever. From web search engines and social media platforms to network
+        routing and cryptography, efficient algorithms form the backbone of modern computing applications.
+
+        While the theoretical understanding of algorithms is crucial, students often face challenges when it comes to:
+
+        Translating algorithmic ideas into code,
+
+        Understanding trade-offs between time and space complexities,
+
+        Choosing the right algorithmic paradigm (like divide and conquer, greedy, dynamic programming), and
+
+        Reasoning about algorithmic efficiency on real-world inputs.
+
+        Through a series of structured and interactive experiments, students gain hands-on experience in:
+
+        Implementing classic and advanced algorithms,
+
+        Experimenting with algorithmic design paradigms,
+
+        Analyzing the time and space complexity of solutions,
+
+        Comparing different algorithms for the same problem, and
+
+        Developing an intuition for algorithmic efficiency and problem-solving.
+
+        This lab helps students not only understand how algorithms work, but also why one algorithm may outperform
+        another in different scenarios. The aim is to build deep algorithmic thinking — a skill essential for
+        competitive programming, system design, research, and real-world software development.</p>
+
+
+
+</body>
+
+</html>

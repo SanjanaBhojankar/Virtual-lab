@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Graph Coloring Challenge — Draggable</title>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+    }
+
+    .navbar {
+      background-color: #bd1dbd;
+       height: 70px; 
+    }
+
+    .logo img {
+      position: relative;
+      left: 5%;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      top: -5px;
+      left: 55px;
+    }
+
+    .sidebar {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 180px;
+      position: absolute;
+      background-color: #bd1dbd;
+      transition: 0.5s ease;
+      transform: translateX(-180px);
+    }
+
+    .sidebar ul {
+      position: absolute;
+      top: 12%;
+      align-items: center;
+    }
+
+    .sidebar ul li {
+      list-style: none;
+      padding-bottom: 20%;
+      font-size: large;
+    }
+
+    .sidebar ul li:hover {}
+
+    .sidebar ul li a {
+      color: white;
+      font-weight: 500;
+      padding: 5px 0;
+      display: block;
+      text-transform: capitalize;
+      text-decoration: none;
+      transition: 0.2s ease-out;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #e638e6;
+    }
+
+    input[type="number"],
+    input[type="range"] {
+      display: inline-block;
+      visibility: visible;
+      -webkit-appearance: auto;
+    }
+
+    .toggle {
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      z-index: 1;
+      cursor: pointer;
+      /* background-color: red; */
+      top: 2.5%;
+      left: 13px;
+    }
+
+    .toggle .common {
+      position: absolute;
+      height: 2px;
+      width: 25px;
+      background-color: white;
+      border-radius: 50px;
+      transition: 0.3s ease;
+    }
+
+    .toggle .top {
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .toggle .middle {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .toggle .bottom {
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    input:checked~.toggle .top {
+      left: 2px;
+      top: 14px;
+      width: 25px;
+      transform: rotate(45deg);
+    }
+
+    input:checked~.toggle .bottom {
+      left: 2px;
+      top: 14px;
+      width: 25px;
+      transform: rotate(-45deg);
+    }
+
+    input:checked~.toggle .middle {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    input:checked~.sidebar {
+      transform: translateX(0);
+    }
+
+    .homepage img {
+      width: 100%;
+    }
+
+    .heading h2 {
+      position: absolute;
+      top: 3%;
+      left: 8%;
+      color: white;
+    }
+
+    .topbar {
+      background: #ff6a00;
+      height: 8px;
+      width: 100%;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 1100px;
+      margin: auto;
+      margin-top: 20px;
+    }
+
+    .panel {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #1f3c88;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .btn-blue {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .btn-green {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-dark {
+      background: #334155;
+      color: white;
+    }
+
+    .btn-red {
+      background: #dc2626;
+      color: white;
+    }
+
+    .small {
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+
+    .color-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 6px;
+      display: inline-block;
+      cursor: pointer;
+      border: 3px solid transparent;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .color-btn.selected {
+      border: 3px solid #111;
+    }
+
+    #graphBox {
+      background: #eef2f7;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.06);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .node {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #475569;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+      box-sizing: border-box;
+    }
+
+    .node:active {
+      cursor: grabbing;
+    }
+
+    svg {
+      overflow: visible;
+      touch-action: none;
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #334155;
+    }
+
+    input[type="number"],
+    input[type="range"] {
+      padding: 0px;
+      border-radius: 6px;
+      border: 1px solid #d0d7df;
+    }
+
+    .mode-btn {
+      border: 1px solid #cbd5e1;
+      background: white;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .mode-btn.active {
+      background: #3b82f6;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    .hint {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="navbar">
+        <input type="checkbox" id="check" />
+        <label for="check" class="toggle">
+          <span class="top common"></span>
+          <span class="middle common"></span>
+          <span class="bottom common"></span>
+        </label>
+
+        <div class="sidebar">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="introduction.html">Introduction</a></li>
+            <li><a href="objective.html">Objective</a></li>
+            <li><a href="Aim.html">Aim</a></li>
+            <li><a href="overview.html">Overview</a></li>
+            <!-- <li><a href="pretest.html">Pretest</a></li> -->
+            <li><a href="recap.html">Recap</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+          </ul>
+        </div>
+
+        <div class="logo">
+          <img src="logo.jpg" alt="" />
+        </div>
+
+        <div class="heading">
+          <h2>Mahatma Gandhi Mission's College of Engineering, Nanded</h2>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="topbar"></div>
+
+  <div class="container">
+    <div class="panel">
+      <div class="section-title">Graph Coloring Challenge</div>
+
+      <div class="controls-row">
+
+        <label>Vertices:</label>
+        <input id="vertexCount" type="range" min="3" max="12" value="4" />
+        <span id="vertexLabel">4</span>
+
+        <label>Edge density:</label>
+        <input id="edgeDensity" type="range" min="0" max="80" value="35" />
+        <span id="densityLabel"></span>
+
+        <button class="btn btn-dark" onclick="createGraph()">
+          New Graph
+        </button>
+        <button class="btn btn-red" onclick="clearColors()">
+          Clear Colors
+        </button>
+        <button class="btn btn-blue" onclick="checkColoring()">
+          Check Coloring
+        </button>
+        <button class="btn btn-green" onclick="showSolution()">
+          Show Solution
+        </button>
+
+        <div style="
+              margin-left: auto;
+              display: flex;
+              gap: 8px;
+              align-items: center;
+            ">
+          <button id="modeMove" class="mode-btn active" onclick="setMode('move')">
+            Move
+          </button>
+          <button id="modeEdge" class="mode-btn" onclick="setMode('edge')">
+            Add Edge
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px">
+        <p style="margin: 6px 0 4px"><b>Available Colors:</b></p>
+        <div id="colorPalette">
+          <div class="color-btn" style="background: red" onclick="selectColor('red',this)"></div>
+          <div class="color-btn" style="background: cornflowerblue" onclick="selectColor('cornflowerblue',this)"></div>
+          <div class="color-btn" style="background: lightgreen" onclick="selectColor('lightgreen',this)"></div>
+          <div class="color-btn" style="background: white; border: 1px solid #ccc" onclick="selectColor('white',this)">
+          </div>
+        </div>
+        <div class="hint">
+          Click a color, then click a vertex to color it. To create/remove an
+          edge: switch to <b>Add Edge</b> mode, click one node then another.
+        </div>
+      </div>
+    </div>
+
+    <div id="graphBox" class="panel">
+      <!-- SVG canvas will be inserted here -->
+      <svg id="svgCanvas" width="800" height="420"></svg>
+    </div>
+  </div>
+
+  <script>
+    /* ========= State ========= */
+    let selectedColor = null;
+    let adjacency = {}; // { label: [label,...] }
+    let nodePositions = {}; // { label: {x,y} }
+    let nodeList = []; // ["A","B",...]
+    let mode = "move"; // 'move' | 'edge'
+    let edgeFirst = null; // temporary for adding edges
+    const svg = document.getElementById("svgCanvas");
+    const vertexCountInput = document.getElementById("vertexCount");
+    const edgeDensityInput = document.getElementById("edgeDensity");
+    const densityLabel = document.getElementById("densityLabel");
+
+    /* ======== Helpers ======== */
+    function alphaLabel(i) {
+      // returns A, B, C... then AA, AB if needed (we cap at 12 anyway)
+      return String.fromCharCode(65 + i);
+    }
+
+    function setMode(m) {
+      mode = m;
+      document
+        .getElementById("modeMove")
+        .classList.toggle("active", m === "move");
+      document
+        .getElementById("modeEdge")
+        .classList.toggle("active", m === "edge");
+      edgeFirst = null;
+    }
+
+    /* ====== Palette & Coloring ====== */
+    function selectColor(color, el) {
+      selectedColor = color;
+      document
+        .querySelectorAll(".color-btn")
+        .forEach((b) => b.classList.remove("selected"));
+      if (el) el.classList.add("selected");
+    }
+
+    function colorNode(label) {
+      if (!selectedColor) return;
+      const nodeEl = document.getElementById("node-" + label);
+      if (nodeEl) nodeEl.style.background = selectedColor;
+    }
+
+    /* ======= Graph operations ======= */
+    function clearColors() {
+      document
+        .querySelectorAll(".node")
+        .forEach((n) => (n.style.background = "white"));
+    }
+
+    /* Check coloring validity */
+    function checkColoring() {
+      const conflicts = [];
+      let allColored = true;
+      for (const v of nodeList) {
+        const vcol = document.getElementById('node-' + v)?.style.background;
+        if (!vcol) { allColored = false; break; } // detect uncolored nodes
+        for (const u of adjacency[v]) {
+          const ucol = document.getElementById('node-' + u)?.style.background;
+          if (vcol && vcol === ucol) {
+            if (v < u) conflicts.push(`${v} - ${u}`);
+          }
+        }
+      }
+      if (!allColored) alert("⚠ Please color all nodes!");
+      else if (conflicts.length === 0) alert("✔ Correct coloring!");
+      else alert("✖ Incorrect coloring!\nConflicts:\n" + conflicts.join("\n"));
+    }
+
+
+    /* Greedy solution */
+    function showSolution() {
+      const colors = [
+        "red",
+        "lightgreen",
+        "cornflowerblue",
+      ];
+      const assign = {};
+      for (const v of nodeList) {
+        const used = new Set(
+          adjacency[v].map((n) => assign[n]).filter((x) => x)
+        );
+        let c = colors.find((col) => !used.has(col));
+        assign[v] = c || "white";
+      }
+      for (const v of nodeList)
+        document.getElementById("node-" + v).style.background = assign[v];
+    }
+
+    /* ======= New Graph Generator (circle layout) ======= */
+    function createGraph() {
+      const n = Math.max(
+        3,
+        Math.min(12, parseInt(vertexCountInput.value) || 6)
+      );
+      const density = parseInt(edgeDensityInput.value) || 35; // percent
+      densityLabel.textContent = density + "%";
+
+      // build nodes
+      nodeList = [];
+      adjacency = {};
+      nodePositions = {};
+      for (let i = 0; i < n; i++) {
+        const label = alphaLabel(i);
+        nodeList.push(label);
+        adjacency[label] = [];
+      }
+
+      // circle layout positions centered in SVG
+      const W = svg.clientWidth;
+      const H = svg.clientHeight;
+      const cx = W / 2;
+      const cy = H / 2;
+      const radius = Math.min(W, H) * 0.35;
+
+      for (let i = 0; i < n; i++) {
+        const ang = (i / n) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + Math.cos(ang) * radius;
+        const y = cy + Math.sin(ang) * radius;
+        nodePositions[nodeList[i]] = { x, y };
+      }
+
+      // random edges based on density
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          if (Math.random() * 100 < density) {
+            const a = nodeList[i],
+              b = nodeList[j];
+            adjacency[a].push(b);
+            adjacency[b].push(a);
+          }
+        }
+      }
+
+      // draw
+      renderGraph();
+    }
+
+    /* ======= Render Graph (edges + nodes) ======= */
+    function renderGraph() {
+      // clear svg
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      // draw edges (lines) first
+      const drawn = new Set();
+      for (const v of nodeList) {
+        for (const u of adjacency[v]) {
+          const key = v < u ? v + "|" + u : u + "|" + v;
+          if (drawn.has(key)) continue;
+          drawn.add(key);
+          const p1 = nodePositions[v],
+            p2 = nodePositions[u];
+          const line = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "line"
+          );
+          line.setAttribute("x1", p1.x);
+          line.setAttribute("y1", p1.y);
+          line.setAttribute("x2", p2.x);
+          line.setAttribute("y2", p2.y);
+          line.setAttribute("stroke", "#475569");
+          line.setAttribute("stroke-width", "3");
+          line.setAttribute("id", "edge-" + key);
+          svg.appendChild(line);
+        }
+      }
+
+      // draw nodes as foreignObject so HTML node style remains same
+      for (const v of nodeList) {
+        const pos = nodePositions[v];
+        const fo = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "foreignObject"
+        );
+        // center the 50x50 node
+        fo.setAttribute("x", pos.x - 25);
+        fo.setAttribute("y", pos.y - 25);
+        fo.setAttribute("width", 60);
+        fo.setAttribute("height", 60);
+        fo.setAttribute("id", "fo-" + v);
+
+        const div = document.createElement("div");
+        div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+        div.className = "node";
+        div.id = "node-" + v;
+        div.textContent = v;
+        div.style.left = "0px";
+        div.style.top = "0px";
+        div.style.background = "white";
+
+        // add pointer handlers for dragging / clicking
+        addNodeInteractions(div, v);
+
+        fo.appendChild(div);
+        svg.appendChild(fo);
+      }
+    }
+
+    /* ======= Node Interactions: drag & edge-creation & color click ======= */
+    function addNodeInteractions(div, label) {
+      // clicking for color or edge creation
+      div.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        if (mode === "edge") {
+          if (!edgeFirst) {
+            edgeFirst = label;
+            highlightNode(label);
+          } else {
+            if (edgeFirst === label) {
+              // clicking same node cancels selection
+              edgeFirst = null;
+              unhighlightAll();
+              return;
+            }
+            toggleEdge(edgeFirst, label);
+            edgeFirst = null;
+            unhighlightAll();
+            renderGraph(); // re-render to show new lines
+          }
+        } else {
+          // color
+          colorNode(label);
+        }
+      });
+
+      // dragging (pointer events for compatibility)
+      let isDown = false;
+      let start = null;
+
+      div.addEventListener("pointerdown", (ev) => {
+        if (mode !== "move") return;
+        ev.preventDefault();
+        isDown = true;
+        div.setPointerCapture(ev.pointerId);
+        start = {
+          x: ev.clientX,
+          y: ev.clientY,
+          origX: nodePositions[label].x,
+          origY: nodePositions[label].y,
+        };
+      });
+
+      window.addEventListener("pointermove", (ev) => {
+        if (!isDown) return;
+        // compute movement in svg coordinate space (same as client coords because we used absolute positions)
+        const dx = ev.clientX - start.x;
+        const dy = ev.clientY - start.y;
+        nodePositions[label].x = start.origX + dx;
+        nodePositions[label].y = start.origY + dy;
+        // move the foreignObject quickly by updating its attributes
+        const fo = document.getElementById("fo-" + label);
+        if (fo) {
+          fo.setAttribute("x", nodePositions[label].x - 25);
+          fo.setAttribute("y", nodePositions[label].y - 25);
+        }
+        // update edges lines positions live
+        updateEdgesForNode(label);
+      });
+
+      window.addEventListener("pointerup", (ev) => {
+        if (!isDown) return;
+        isDown = false;
+        try {
+          div.releasePointerCapture(ev.pointerId);
+        } catch (e) { }
+      });
+    }
+
+    /* Toggle an undirected edge between a and b */
+    function toggleEdge(a, b) {
+      if (a === b) return;
+      // remove if exists
+      if (adjacency[a].includes(b)) {
+        adjacency[a] = adjacency[a].filter((x) => x !== b);
+        adjacency[b] = adjacency[b].filter((x) => x !== a);
+      } else {
+        adjacency[a].push(b);
+        adjacency[b].push(a);
+      }
+    }
+
+    /* Update lines connected to a node (fast) */
+    function updateEdgesForNode(label) {
+      // for every neighbor, update the line
+      const neighbors = adjacency[label] || [];
+      // update existing lines in svg or redraw all lines
+      // We'll update all edge elements positions for simplicity
+      for (const v of nodeList) {
+        for (const u of adjacency[v]) {
+          const key = v < u ? v + "|" + u : u + "|" + v;
+          const line = document.getElementById("edge-" + key);
+          if (line) {
+            const p1 = nodePositions[v],
+              p2 = nodePositions[u];
+            line.setAttribute("x1", p1.x);
+            line.setAttribute("y1", p1.y);
+            line.setAttribute("x2", p2.x);
+            line.setAttribute("y2", p2.y);
+          }
+        }
+      }
+    }
+
+    /* Highlight helper for edge mode */
+    function highlightNode(label) {
+      unhighlightAll();
+      const el = document.getElementById("node-" + label);
+      if (el) el.style.boxShadow = "0 0 0 6px rgba(59,130,246,0.12)";
+    }
+    function unhighlightAll() {
+      document
+        .querySelectorAll(".node")
+        .forEach((n) => (n.style.boxShadow = "none"));
+    }
+
+    /* Initialize controls */
+    document.getElementById("edgeDensity").addEventListener("input", (e) => {
+      densityLabel.textContent = e.target.value + "%";
+    });
+
+    // 👉 ADD THIS JUST BELOW
+    const vertexLabel = document.getElementById("vertexLabel");
+
+    vertexCountInput.addEventListener("input", (e) => {
+      vertexLabel.textContent = e.target.value;
+    });
+
+    /* Click on SVG background cancels edge selection */
+    svg.addEventListener("click", () => {
+      if (mode === "edge") {
+        edgeFirst = null;
+        unhighlightAll();
+      }
+    });
+
+    /* Start with a graph */
+    createGraph();
+
+    /* Expose functions to global scope for button onclick attributes */
+    window.createGraph = createGraph;
+    window.clearColors = clearColors;
+    window.checkColoring = checkColoring;
+    window.showSolution = showSolution;
+    window.selectColor = selectColor;
+    window.colorNode = colorNode;
+    window.setMode = setMode;
+  </script>
+</body>
+
+</html>

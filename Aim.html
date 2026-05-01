@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aim</title>
+
+    <style>
+        * {
+    margin: 0%;
+    padding: 0%;
+}
+
+.navbar {
+    background-color: #bd1dbd;
+    height: 70px;
+}
+
+
+.logo img {
+    position: relative;
+    left: 5%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    top: -5px;
+    left: 55px;
+}
+
+.sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 180px;
+    position: absolute;
+    background-color: #bd1dbd;
+    transition: 0.5s ease;
+    transform: translateX(-180px);
+}
+
+.sidebar ul {
+    position: absolute;
+    top: 12%;
+    align-items: center;
+}
+
+.sidebar ul li {
+    list-style: none;
+    padding-bottom: 20%;
+    font-size: large;
+}
+
+.sidebar ul li:hover {}
+
+.sidebar ul li a {
+    color: white;
+    font-weight: 500;
+    padding: 5px 0;
+    display: block;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: 0.2s ease-out;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e638e6;
+}
+
+input[type="number"],
+input[type="range"] {
+    display: inline-block;
+    visibility: visible;
+    -webkit-appearance: auto;
+}
+
+.toggle {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    z-index: 1;
+    cursor: pointer;
+    /* background-color: red; */
+    top: 2.5%;
+    left: 13px;
+}
+
+.toggle .common {
+    position: absolute;
+    height: 2px;
+    width: 25px;
+    background-color: white;
+    border-radius: 50px;
+    transition: 0.3s ease;
+}
+
+.toggle .top {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle .middle {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle .bottom {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input:checked~.toggle .top {
+    left: 2px;
+    top: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+}
+
+ .topbar {
+      background: #ff6a00;
+      height: 8px;
+      width: 100%;
+    }
+
+input:checked~.toggle .bottom {
+    left: 2px;
+    top: 14px;
+    width: 25px;
+    transform: rotate(-45deg);
+}
+
+input:checked~.toggle .middle {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+input:checked~.sidebar {
+    transform: translateX(0);
+}
+
+.homepage img {
+    width: 100%;
+}
+
+.heading h2 {
+    position: absolute;
+    top: 3%;
+    left: 8%;
+    color: white;
+}
+
+        .nav {
+            background-color: white;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 1%;
+            color: #bd1dbd;
+        }
+
+        p {
+            font-size: large;
+        }
+
+        ol {
+            font-size: large;
+        }
+
+        ul {
+            margin-left: 5%;
+            margin-bottom: 10px;
+        }
+
+        li {
+            font-size: large;
+            line-height: 25px;
+        }
+
+        .aim {
+            background-color: white;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+            width: 80%;
+            margin-left: 5%;
+            padding-top: 0.5%;
+            padding-bottom: 0.5%;
+        }
+
+        .aim h2 {
+            margin-left: 1%;
+            text-decoration: underline;
+        }
+
+        p {
+            margin-left: 1%;
+        }
+
+        .text {
+            padding-left: 2%;
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+
+            <div class="navbar">
+
+                <input type="checkbox" id="check">
+                <label for="check" class="toggle">
+                    <span class="top common"></span>
+                    <span class="middle common"></span>
+                    <span class="bottom common"></span>
+                </label>
+
+
+
+                <div class="sidebar">
+                    <ul>
+                        <li><a href="introduction.html">Introduction</a></li>
+                        <li><a href="objective.html">Objective</a></li>
+                        <li><a href="Aim.html">Aim</a></li>
+                        <li><a href="overview.html">Overview</a></li>
+                        <!-- <li><a href="pretest.html">Pretest</a></li> -->
+                        <li><a href="recap.html">Recap</a></li>
+                        <li><a href="simulation.html">Simulation</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="logo">
+                    <img src="logo.jpg" alt="">
+                </div>
+
+                <div class="heading">
+                    <h2>Mahatma Gandhi Mission's College of Engineering, Nanded</h2>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+  <div class="topbar"></div>
+
+
+
+    <div class="nav">
+        <h1>Graph Coloring</h1>
+    </div>
+
+    <div class="aim">
+        <h2>Learning Objectives Of the Experiment</h2><br>
+        <p>In this experiment, we will be able to do the following:</p><br>
+
+        <div class="text">
+            1. Understand the Problem of Graph Coloring
+        </div>
+
+        <ul>
+            <li>Define graph coloring and its real-world applications (e.g., scheduling, register allocation, map
+                coloring).
+            </li>
+            <li>Recognize the concept of chromatic number and valid coloring rules.</li>
+        </ul>
+
+        <div class="text">
+            2. Implement Graph Coloring Algorithms
+        </div>
+
+
+        <ul>
+            <li>Apply greedy coloring techniques to color vertices of a given graph.</li>
+            <li>Develop code to implement backtracking-based coloring algorithms.</li>
+            <li>Use data structures (like adjacency matrices or lists) to represent graphs.</li>
+        </ul>
+
+        <div class="text">
+            3. Analyze Time and Space Complexity
+        </div>
+
+
+        <ul>
+            <li>Determine the time and space complexity of greedy and backtracking approaches.</li>
+            <li>Identify the computational challenges of solving NP-Hard problems like k-coloring.</li>
+        </ul>
+
+        <div class="text">
+            4. Compare Graph Coloring with Other Graph Algorithms
+        </div>
+
+
+        <ul>
+            <li>Understand where graph coloring stands in relation to other graph algorithms (like BFS, DFS, MST).</li>
+            <li>Discuss the differences between exact and heuristic-based solutions.</li>
+        </ul>
+
+        <div class="text">
+            5. Explore the Stability and Determinism in Graph Coloring
+        </div>
+
+
+        <ul>
+            <li>Demonstrate how the coloring result can change based on vertex ordering (i.e., non-determinism in greedy
+                coloring).</li>
+            <li>Understand the conditions under which a stable coloring can be ensured.</li>
+        </ul>
+
+        <div class="text">
+            6. Apply Graph Coloring to Real-World Scenarios
+        </div>
+
+
+        <ul>
+            <li>Simulate scheduling problems or resource allocation using graph coloring principles.</li>
+            <li>Analyze the effectiveness of graph coloring in optimizing such problems.</li>
+        </ul>
+
+    </div>
+</body>
+
+
+<!-- by default ol takes 1 otherwise type="i" -->
+<!-- hypercolor -->
+
+</html>
